@@ -1,0 +1,26 @@
+version: "3.3" 
+services:
+  mumble_server:
+    container_name: mumble_server
+    image: infoveinx/mumble-server:1.34
+    networks:
+      - mumble_net
+    ports:
+      - "64738:64738/tcp"
+      - "64738:64738/udp"
+    restart: unless-stopped
+    volumes:
+      - "mumble_db:/var/lib/mumble-server"
+      
+
+networks:
+  mumble_net:
+    driver: bridge
+    name: mumble_net
+    ipam:
+      config:
+        - subnet: 10.151.151.0/24
+
+volumes:
+  mumble_db:
+    name: mumble_db
